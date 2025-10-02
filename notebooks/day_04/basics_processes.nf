@@ -4,9 +4,79 @@ params.zip = 'zip'
 
 process SAYHELLO {
     debug true
+    output:
+    stdout
+
+    script:
+    """
+    echo 'Hello world!' 
+    """
 }
 
+process SAYHELLO_PYTHON {
+    debug true
+    output:
+    stdout
 
+    script:
+    """
+    #!/usr/bin/env python
+    print("Hello world!") 
+    """
+}
+
+process SAYHELLO_PARAM {
+    debug true
+    input:
+    val str
+    output:
+    stdout
+
+    script:
+    """
+    echo ${str}
+    """
+}
+
+process SAYHELLO_FILE{
+    debug true
+
+    input:
+    val str
+
+    output:
+    path 'hello.txt'
+
+    script:
+    """
+    echo ${str} > hello.txt
+    """
+}
+
+process UPPERCASE {
+    debug true
+    input:
+    val str
+    output:
+    path 'upper.txt'
+
+    script:
+    """
+    echo $str | tr '[a-z]' '[A-Z]' > upper.txt
+    """
+}
+
+process PRINTUPPER {
+    debug true
+    input:
+    val str
+    output:
+    stdout
+    script:
+    """
+    cat ${str}
+    """
+}
 
 workflow {
 
